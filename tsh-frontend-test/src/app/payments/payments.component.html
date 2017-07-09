@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form class="search-form">
+            <input type="text" class="form-control mb-2" placeholder="Search suppliers" name="searchQuery"
+                   [(ngModel)]="query">
+            <select class="form-control mb-2" name="searchRating" [(ngModel)]="rating">
+                <option [ngValue]="0">Select pound rating</option>
+                <option [ngValue]="1">One</option>
+                <option [ngValue]="2">Two</option>
+                <option [ngValue]="3">Three</option>
+                <option [ngValue]="4">Four</option>
+                <option [ngValue]="5">Five</option>
+            </select>
+            <button type="button" class="btn btn-default" (click)="reset();">Reset</button>
+            <button type="button" class="btn btn-primary" (click)="search()">Search</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive payments">
+            <table class="table payments-table">
+                <thead>
+                <tr>
+                    <th>Supplier</th>
+                    <th>Pound Rating</th>
+                    <th>Reference</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let payment of payments" (click)="selectPayment(payment)">
+                    <td>{{payment.payment_supplier}}</td>
+                    <td>
+                        <div class="rating-icons">
+                            <span *ngFor="let rating of [1,2,3,4,5];"
+                                  [ngClass]="{'active': payment.payment_cost_rating >= rating}">
+                                &pound;
+                            </span>
+                        </div>
+                    </td>
+                    <td>{{payment.payment_ref}}</td>
+                    <td>&pound; {{payment.payment_amount}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="pagination">
+            <li>
+                <a href="#" class="btn"><i class="fa fa-chevron-left"></i></a>
+            </li>
+            <li *ngFor="let page of pagination?.links | keys " [ngClass]="{'active': page.key == pagination.current}">
+                <a class="btn" (click)="setPage(page.value)"> {{page.key}}</a>
+            </li>
+            <li>
+                <a href="#" class="btn"><i class="fa fa-chevron-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>

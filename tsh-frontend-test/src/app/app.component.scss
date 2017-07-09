@@ -1,0 +1,32 @@
+@import "../scss/variables";
+@import "../scss/mixins";
+
+.box-container {
+  width: calc(100% - 15px);
+  max-width: 980px;
+  margin: 75px auto;
+}
+
+.box {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  padding: 0 20px;
+  border-radius: 2px;
+  background: $washed-white;
+  @include box-shadow(0px 2px 6px 0px $strong-shadow, 0px 0px 0px 7px $soft-shadow);
+
+  &-header {
+    padding: 20px 0;
+    border-bottom: 1px solid $grey;
+    width: 100%;
+    display: block;
+    float: left;
+  }
+  &-body {
+    width: 100%;
+    display: block;
+    float: left;
+    padding: 20px 0;
+  }
+}
