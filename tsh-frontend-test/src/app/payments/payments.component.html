@@ -54,7 +54,7 @@
                 <a href="#" class="btn"><i class="fa fa-chevron-left"></i></a>
             </li>
             <li *ngFor="let page of pagination?.links | keys " [ngClass]="{'active': page.key == pagination.current}">
-                <a class="btn" (click)="setPage(page.value)"> {{page.key}}</a>
+                <a class="btn" (click)="setPage(page.value);"> {{page.key}}</a>
             </li>
             <li>
                 <a href="#" class="btn"><i class="fa fa-chevron-right"></i></a>

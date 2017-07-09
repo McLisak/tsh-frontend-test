@@ -16,7 +16,7 @@ export class PaymentsComponent implements OnInit {
 
     query: string = "";
     rating: number = 0;
-    page: string = "";
+    pageLink: string = "";
 
     constructor(private paymentsService: PaymentsService) {
 
@@ -53,9 +53,8 @@ export class PaymentsComponent implements OnInit {
         this.rating = 0;
     }
 
-    setPage(page: any) {
-        console.log(page);
-        this.page = page;
-        // console.log(this.page);
+    setPage(page: string) {
+        this.pageLink = page;
+        console.log(this.pageLink);
     }
 }
