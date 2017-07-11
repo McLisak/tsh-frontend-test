@@ -22,12 +22,55 @@
   -moz-box-shadow: $options;
   box-shadow: $options;
 }
+@mixin transform($transform...) {
+  -moz-transform: $transform;
+  -o-transform: $transform;
+  -ms-transform: $transform;
+  -webkit-transform: $transform;
+  transform: $transform;
+}
+
+@mixin rotate($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
+@mixin translate($x, $y) {
+  @include transform(translate($x, $y));
+}
+
+@mixin transition($ms, $prop, $animation: ease-in-out) {
+  -webkit-transition: #{$ms}ms $prop $animation;
+  -moz-transition: #{$ms}ms $prop $animation;
+  -ms-transition: #{$ms}ms $prop $animation;
+  -o-transition: #{$ms}ms $prop $animation;
+  transition: #{$ms}ms $prop $animation;
+}
+
+@mixin transitions($transitions...) {
+  -webkit-transition: $transitions;
+  -moz-transition: $transitions;
+  -ms-transition: $transitions;
+  -o-transition: $transitions;
+  transition: $transitions;
+}
 
 @mixin placeholder {
-  ::-webkit-input-placeholder {@content}
-  :-moz-placeholder           {@content}
-  ::-moz-placeholder          {@content}
-  :-ms-input-placeholder      {@content}
+  ::-webkit-input-placeholder {
+    @content
+  }
+  :-moz-placeholder {
+    @content
+  }
+  ::-moz-placeholder {
+    @content
+  }
+  :-ms-input-placeholder {
+    @content
+  }
 }
 
 $tablet-width: 768px;
@@ -38,7 +81,8 @@ $desktop-width: 1024px;
     @content;
   }
 }
-@mixin tablet{
+
+@mixin tablet {
   @media (min-width: #{$tablet-width}) {
     @content;
   }

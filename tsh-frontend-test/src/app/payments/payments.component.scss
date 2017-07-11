@@ -1,7 +1,5 @@
 @import "../../scss/variables";
 @import "../../scss/mixins";
-
-
 .search-form {
   width: 100%;
   max-width: 720px;
@@ -35,7 +33,6 @@
   }
 }
 
-
 .payments {
   width: 100%;
   float: left;
@@ -66,7 +63,7 @@
         &:nth-of-type(2n) {
           background: $table-secondary-row;
         }
-        &:hover{
+        &:hover {
           background: $grey;
         }
         td {
@@ -78,8 +75,11 @@
             text-align: left;
             padding-left: 30px;
             border-left: none;
-            width: 50%;
+            width: 55%;
             min-width: 220px;
+          }
+          &:nth-child(2) {
+            width: 170px;
           }
         }
       }
@@ -90,17 +90,19 @@
 .rating-icons {
   display: block;
   position: relative;
-  width: auto;
+  width: 150px;
+  margin: 0 auto;
   text-align: center;
-  span {
+  .rating-icon {
+    display: inline-block;
     width: 25px;
     height: 25px;
     font-size: 15px;
     line-height: 22px;
     border-radius: 50%;
     border: 1px solid $dark-grey;
-    display: inline-block;
     text-align: center;
+    margin: 0 2.5px;
     @include box-shadow(0 1px 5px 0 $strong-shadow);
     color: $dark-grey;
     font-weight: 600;
@@ -131,7 +133,7 @@
       line-height: 2rem;
       padding: 0;
       border-radius: 3px;
-      border: 1px solid $dark-grey;
+      border: 1px solid $pagination-button-border;
       @include box-shadow(0px 1px 3px -1px $strong-shadow);
       @include linearGradient($pagination-button-top, $pagination-button-bottom);
       color: $dark-grey;
@@ -145,6 +147,128 @@
         background: $dark-grey;
         @include box-shadow(inset 0px 0px 10px 0px $strong-shadow);
       }
+    }
+  }
+}
+
+.payment-details {
+  display: block;
+  visibility: hidden;
+  @include transition(250, all);
+  .modal-backdrop {
+    z-index: 49;
+    background: $backdrop;
+  }
+  .modal-dialog{
+    z-index: 50;
+  }
+  .modal-content {
+    border-radius: 3px;
+    @include box-shadow(0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22));
+  }
+  .modal-header, .modal-body, .modal-footer {
+    border: none;
+  }
+  .modal-header {
+    padding: 15px 15px 25px 15px;
+  }
+  .close {
+    display: block;
+    float: right;
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    filter: alpha(opacity=100);
+    opacity: 1;
+    @include transition(150, transform);
+    @include scale(1);
+    &:active, &:focus {
+      outline: 0;
+    }
+    &:hover {
+      @include scale(1.2);
+    }
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      width: 3rem;
+      height: 1px;
+      top: 1.5rem;
+      left: 0;
+      border-bottom: 1px solid $dark-grey;
+      @include rotate(0);
+      @include transition(200, transform);
+    }
+  }
+
+  .modal-body {
+    h2 {
+      font-weight: 300;
+      font-size: 3rem;
+      color: $accent;
+      text-align: center;
+      margin: 0;
+      clear: both;
+      @include tablet {
+        font-size: 4rem;
+      }
+    }
+    p {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 7px;
+      &.value {
+        color: $accent;
+        font-weight: 600;
+      }
+    }
+    .rating-icons {
+      margin-top: 15px;
+    }
+    span:not(.rating-icon) {
+      font-size: 1.5rem;
+      margin-bottom: 1px;
+      position: relative;
+      &:after {
+        content: '';
+        width: 90%;
+        display: block;
+        position: absolute;
+        height: 1px;
+        background: $grey;
+        bottom: -5px;
+        left: 50%;
+        @include translate(-50%, 0);
+      }
+    }
+  }
+  &.in {
+    visibility: visible;
+    .close {
+      &:before {
+        @include rotate(45);
+      }
+      &:after {
+        @include rotate(-45);
+      }
+    }
+  }
+
+  .detail {
+    &-ratings {
+      width: 100%;
+      display: block;
+      float: left;
+      padding: 20px 15px;
+      text-align: center;
+    }
+    &-reference {
+      padding: 20px 15px;
+      text-align: center;
+    }
+    &-value {
+      padding: 20px 15px;
+      text-align: center;
     }
   }
 }

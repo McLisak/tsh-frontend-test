@@ -18,47 +18,92 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <div class="table-responsive payments">
-            <table class="table payments-table">
-                <thead>
-                <tr>
-                    <th>Supplier</th>
-                    <th>Pound Rating</th>
-                    <th>Reference</th>
-                    <th>Value</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let payment of payments" (click)="selectPayment(payment)">
-                    <td>{{payment.payment_supplier}}</td>
-                    <td>
-                        <div class="rating-icons">
-                            <span *ngFor="let rating of [1,2,3,4,5];"
-                                  [ngClass]="{'active': payment.payment_cost_rating >= rating}">
-                                &pound;
-                            </span>
-                        </div>
-                    </td>
-                    <td>{{payment.payment_ref}}</td>
-                    <td>&pound; {{payment.payment_amount}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <div *ngIf="payments; then paymentsTable else missingPayments"></div>
+        <ng-template #paymentsTable>
+            <div class="table-responsive payments">
+                <table class="table payments-table">
+                    <thead>
+                    <tr>
+                        <th>Supplier</th>
+                        <th>Pound Rating</th>
+                        <th>Reference</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let payment of payments" (click)="selectPayment(payment)">
+                        <td>{{payment.payment_supplier}}</td>
+                        <td>
+                            <div class="rating-icons">
+                                <span *ngFor="let rating of [1,2,3,4,5];" class="rating-icon"
+                                      [ngClass]="{'active': payment.payment_cost_rating >= rating}">
+                                    &pound;
+                                </span>
+                            </div>
+                        </td>
+                        <td>{{payment.payment_ref}}</td>
+                        <td>&pound;{{payment.payment_amount}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
+        <ng-template #missingPayments>
+            <h3 class="text-center">
+                {{missingPaymentsMsg}}
+            </h3>
+        </ng-template>
     </div>
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <ul class="pagination">
-            <li>
+        <ul *ngIf="pagination" class="pagination">
+            <li [ngClass]="{'invisible': !pagination.left}" (click)="setPage(pagination.current, -1)">
                 <a href="#" class="btn"><i class="fa fa-chevron-left"></i></a>
             </li>
-            <li *ngFor="let page of pagination?.links | keys " [ngClass]="{'active': page.key == pagination.current}">
-                <a class="btn" (click)="setPage(page.value);"> {{page.key}}</a>
+            <li *ngFor="let page of pagination.links | keys " [ngClass]="{'active': page.key == pagination.current}">
+                <a class="btn" (click)="setPage(page.key);"> {{page.key}}</a>
             </li>
-            <li>
+            <li [ngClass]="{'invisible': !pagination.right}" (click)="setPage(pagination.current, 1)">
                 <a href="#" class="btn"><i class="fa fa-chevron-right"></i></a>
             </li>
         </ul>
+    </div>
+</div>
+<div [ngClass]="{'in': paymentDetailsModal == true}" class="modal fade payment-details" id="payment-details">
+    <div class="modal-backdrop" (click)="closeModal()"></div>
+    <div class="modal-dialog">
+        <div *ngIf="selectedPayment" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="closeModal()"></button>
+                <h3 class="modal-title">Payment details</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <h2>{{selectedPayment.payment_supplier}}</h2>
+                </div>
+                <hr class="short-hr">
+                <div class="row">
+                    <div class="detail-ratings">
+                        <span>Pound Rating</span>
+                        <div class="rating-icons">
+                            <span *ngFor="let rating of [1,2,3,4,5];" class="rating-icon"
+                                  [ngClass]="{'active': selectedPayment.payment_cost_rating >= rating}"
+                            >&pound;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 detail-reference">
+                        <span>Reference</span>
+                        <p>{{selectedPayment.payment_ref}}</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 detail-value">
+                        <span>Value</span>
+                        <p [ngClass]="" class="value warning">&pound;{{selectedPayment.payment_amount}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

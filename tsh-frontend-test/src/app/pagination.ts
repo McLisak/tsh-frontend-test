@@ -8,4 +8,5 @@ export class Pagination {
     rightEnd: boolean;
     to: number;
     total: number;
+
 }

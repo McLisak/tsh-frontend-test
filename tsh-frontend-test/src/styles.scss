@@ -4,6 +4,11 @@
 @import "scss/mixins";
 @import "scss/variables";
 
+*{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 *:not(.fa) {
   font-family: 'Source Sans Pro', sans-serif !important;
 }
@@ -46,4 +51,12 @@ body {
   &-primary {
     @include linearGradient($btn-primary-top, $btn-primary-bottom);
   }
+}
+
+.short-hr{
+  width: 66.7%;
+  border-color: $grey;
+}
+.invisible{
+  visibility: hidden;
 }

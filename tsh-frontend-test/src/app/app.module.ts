@@ -5,14 +5,12 @@ import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {PaymentsComponent} from './payments/payments.component';
-import {PaymentDetailsComponent} from './payment-details/payment-details.component';
 import {KeysPipe} from './keys.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
         PaymentsComponent,
-        PaymentDetailsComponent,
         KeysPipe,
     ],
     imports: [
