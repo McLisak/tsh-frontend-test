@@ -38,14 +38,11 @@ export class PaymentsComponent implements OnInit {
             );
     }
 
-    selectPayment(payment: Payment) {
-        this.selectedPayment = payment;
-        this.paymentDetailsModal = true;
+    togglePaymentDetails(payment?: Payment) {
+        if (payment) this.selectedPayment = payment;
+        this.paymentDetailsModal = !this.paymentDetailsModal;
     }
 
-    closeModal() {
-        this.paymentDetailsModal = false;
-    }
 
     search() {
         this.pagination.current = 0;
@@ -60,13 +57,6 @@ export class PaymentsComponent implements OnInit {
                     this.pagination = response.pagination;
                 }
             );
-    }
-
-    reset() {
-        this.query = "";
-        this.rating = 0;
-        this.pagination.current = 0;
-        this.getPayments();
     }
 
     setPage(page: any, jump?: number) {
@@ -85,4 +75,12 @@ export class PaymentsComponent implements OnInit {
                 }
             );
     }
+
+    reset() {
+        this.query = "";
+        this.rating = 0;
+        this.pagination.current = 0;
+        this.getPayments();
+    }
+
 }

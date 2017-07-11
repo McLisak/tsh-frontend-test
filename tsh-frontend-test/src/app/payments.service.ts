@@ -18,16 +18,7 @@ export class PaymentsService {
         return Promise.reject(error.message || error);
     }
 
-    getPayments(): Promise<PaymentResponse> {
-        return this.http.get(API_URL)
-            .toPromise()
-            .then(
-                response => response.json() as PaymentResponse
-            )
-            .catch(this.errorHandle);
-    }
-
-    searchPayments(params: {}): Promise<PaymentResponse> {
+    private prepareSearchParams(params: {}): RequestOptions {
         let searchParams: URLSearchParams = new URLSearchParams();
         for (let param in params) {
             if (params[param]) {
@@ -38,6 +29,20 @@ export class PaymentsService {
         }
         let requestOptions = new RequestOptions();
         requestOptions.params = searchParams;
+        return requestOptions;
+    }
+
+    getPayments(): Promise<PaymentResponse> {
+        return this.http.get(API_URL)
+            .toPromise()
+            .then(
+                response => response.json() as PaymentResponse
+            )
+            .catch(this.errorHandle);
+    }
+
+    searchPayments(params: {}): Promise<PaymentResponse> {
+        let requestOptions = this.prepareSearchParams(params);
         return this.http.get(API_URL, requestOptions)
             .toPromise()
             .then(

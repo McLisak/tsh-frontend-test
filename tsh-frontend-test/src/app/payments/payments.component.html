@@ -31,7 +31,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let payment of payments" (click)="selectPayment(payment)">
+                    <tr *ngFor="let payment of payments" (click)="togglePaymentDetails(payment)">
                         <td>{{payment.payment_supplier}}</td>
                         <td>
                             <div class="rating-icons">
@@ -70,12 +70,13 @@
         </ul>
     </div>
 </div>
+
 <div [ngClass]="{'in': paymentDetailsModal == true}" class="modal fade payment-details" id="payment-details">
-    <div class="modal-backdrop" (click)="closeModal()"></div>
+    <div class="modal-backdrop" (click)="togglePaymentDetails()"></div>
     <div class="modal-dialog">
         <div *ngIf="selectedPayment" class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" (click)="closeModal()"></button>
+                <button type="button" class="close" (click)="togglePaymentDetails()"></button>
                 <h3 class="modal-title">Payment details</h3>
             </div>
             <div class="modal-body">
