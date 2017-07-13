@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, RequestOptions, URLSearchParams} from '@angular/http';
+import {Http, RequestOptions, URLSearchParams, Headers} from '@angular/http';
 import {PaymentResponse} from './payment-response';
 import 'rxjs/add/operator/toPromise';
 import {stringify} from "@angular/core/src/util";
